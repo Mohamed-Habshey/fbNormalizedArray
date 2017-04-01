@@ -20,7 +20,7 @@ angular.module('fbNormalizedArray', ['firebase'])
         return $firebaseArray.$extend({
             $$added: function(snap) {
                 // allow the user to provide nested foreign key to join on 
-                var child = fKey ? snap.val()[fKey] : snap.key;
+                var child = fKey ? snap.val()[fKey] : snap.key();
                 return $firebaseObject(ref2.child(child)).$loaded().then(function(data) {
                     // async merge  2 object with reference to the original one
                     // can't use shortcuts cause of the old webkit ionic runs on
@@ -28,7 +28,7 @@ angular.module('fbNormalizedArray', ['firebase'])
                     var alias1Name = alias1 || "$value";
                     var alias2Name = alias2 || "$extData";
                     var object = {};
-                    object.$id = snap.key;
+                    object.$id = snap.key();
                     object[alias1Name] = snap.val()
                     object[alias2Name] = angular.merge(data);
 
@@ -39,11 +39,11 @@ angular.module('fbNormalizedArray', ['firebase'])
             },
             $$updated: function(snap) {
                     // get the index of the changed item 
-                    var object = this.$list[this._indexCache[snap.key]];
+                    var object = this.$list[this._indexCache[snap.key()]];
                     // can't use shortcuts cause of the old webkit ionic runs on
                     var alias1Name = alias1 || "$value";
                     var object2 = {};
-                    object2.$id = snap.key;
+                    object2.$id = snap.key();
                     object2[alias1Name] = snap.val();
 
                     return angular.merge(object, object2)
