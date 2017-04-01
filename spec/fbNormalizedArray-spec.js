@@ -4,17 +4,9 @@ describe('fbNormalizedArray module', function () {
   var fb
   beforeAll(function (done) {
     // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAD5ZYMiagvgshLD5o8ZFzCtjwlj7JIFws",
-      authDomain: "fbnormalizedarray.firebaseapp.com",
-      databaseURL: "https://fbnormalizedarray.firebaseio.com",
-      projectId: "fbnormalizedarray",
-      storageBucket: "fbnormalizedarray.appspot.com",
-      messagingSenderId: "224585557006"
-    };
-    firebase.initializeApp(config);
+    
+    fb  = new Firebase("https://fbnormalizedarray.firebaseio.com/");
     console.log("Connected to firebase! ");
-    fb = firebase.database().ref();
     done()
 
   })
