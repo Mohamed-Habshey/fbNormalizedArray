@@ -55,6 +55,13 @@ module.exports = function (config) {
     autoWatch: false,
 
 
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
+
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     // browsers: ['Chrome', 'PhantomJS'],
@@ -72,5 +79,17 @@ module.exports = function (config) {
     // Browser No Activity Timeout
     //How long will Karma wait for a message from a browser before disconnecting from it (in ms).
     browserNoActivityTimeout: 30000
-  });
+
+
+  };
+
+
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
+
+  config.set(configuration);
+
 };
+
+
