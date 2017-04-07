@@ -1,9 +1,8 @@
 //jshint strict: false
 module.exports = function (config) {
-  config.set({
+  var configuration = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -35,7 +34,17 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['spec', 'failed', 'coverage'],
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      dir: 'coverage/',
+      reporters: [
+        // reporters html for us and Icov for coveralls
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' },
+      ]
+    },
 
 
     // web server port
